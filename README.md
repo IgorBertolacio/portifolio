@@ -50,6 +50,23 @@ lib/
 3. Os frames são posicionados dinamicamente baseados no tamanho da tela
 4. Todas as transições de posição e tamanho são animadas suavemente
 
+## Fluxograma da Aplicação
+
+```mermaid
+graph TD
+    A[Inicialização do App] --> B[Carregamento de Assets]
+    B --> C[Widget Principal Portifolio]
+    C --> D[Gerenciamento de Estado]
+    C --> E[Sistema de Navegação]
+    E --> F[Home Screen]
+    F --> G[Frames Responsivos]
+    G --> H[Layout Desktop]
+    G --> I[Layout Mobile]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style F fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## Tecnologias Utilizadas
 - Flutter
 - Provider (Gerenciamento de Estado)
