@@ -1,124 +1,123 @@
-# Portfólio Interativo em Flutter
+# Portfólio Interativo
 
-Este projeto é um portfólio interativo desenvolvido em Flutter, apresentando uma interface moderna e responsiva com animações fluidas.
+Um portfólio moderno desenvolvido em Flutter, apresentando uma interface única com navegação parallax, animações suaves e sistema de logging.
 
-## Arquitetura e Fluxo de Execução
+## 📑 Sumário
+- [Visão Geral](#-visão-geral)
+- [Recursos](#-recursos)
+- [Arquitetura](#-arquitetura)
+- [Sistema de Logs](#-sistema-de-logs)
+- [Instalação](#-instalação)
+- [Desenvolvimento](#-desenvolvimento)
 
-### 1. Inicialização do App (`main.dart`)
-- O ponto de entrada do aplicativo está em `main.dart`
-- Inicializa o widget principal `Portifolio`
+## 🎯 Visão Geral
 
-### 2. Widget Principal (`portifolio.dart`)
-O widget `Portifolio` é responsável por:
-- Gerenciar o estado de navegação usando Provider
-- Pré-carregar assets SVG para melhor performance
-- Configurar o tema e gradiente principal do app
-- Renderizar o `NavigationWrapper` quando os assets estão carregados
+Portfólio interativo que combina design moderno com uma experiência de usuário fluida. Desenvolvido com Flutter e seguindo princípios de Clean Architecture.
 
-### 3. Tela Inicial (`home_screen.dart`)
-A `HomeScreen` implementa:
-- Layout responsivo usando `ResponsiveFrameLayout`
-- Frames interativos que se adaptam ao tamanho da tela
+### Principais Características
+- Interface moderna com efeito parallax
+- Navegação intuitiva por scroll, gestos e cliques
+- Sistema de logs para rastreamento de interações
+- Design responsivo para desktop e mobile
 
-### 4. Sistema de Frames Responsivos
-#### ResponsiveFrameLayout
-- Gerencia a disposição dos frames na tela
-- Adapta-se automaticamente para layouts mobile (≤768px) e desktop
-- Implementa animações suaves com duração de 500ms usando `Curves.easeInOutCubic`
-- Utiliza `AnimatedPositioned` e `AnimatedContainer` para transições fluidas
+## 💫 Recursos
 
-#### HoverableFrame
-- Adiciona interatividade aos frames
-- Implementa efeitos de hover para melhor experiência do usuário
+### Navegação
+- **Scroll Vertical**: Navegue entre seções usando a roda do mouse
+- **Gestos**: Suporte a gestos de arrasto em dispositivos touch
+- **Cliques**: Navegação direta ao clicar em frames
 
-## Navegação Interativa
+### Interatividade
+- **Efeito Hover**: Animações suaves ao passar o mouse
+- **Transições**: Efeitos de parallax entre seções
+- **Feedback Visual**: Indicadores de interação e navegação
 
-### Estratégia de Navegação
-O projeto implementa uma navegação inovadora que suporta múltiplos métodos de interação:
+### Responsividade
+- Layout adaptativo para diferentes telas
+- Interações otimizadas por dispositivo
+- Dimensionamento automático de conteúdo
 
-#### Navegação por Scroll do Mouse
-- Permite navegar entre telas usando a roda do mouse
-- Implementado no `NavigationWrapper`
-- Suporta scroll para cima e para baixo
-- Usa um mecanismo de debounce para prevenir scrolls acidentais
+## 🏗 Arquitetura
 
-#### Navegação por Gestos Touch (Mobile-Friendly)
-- Implementa gestos de arrasto (drag) para navegação
-- Suporta navegação intuitiva em dispositivos móveis
-- Limiar de sensibilidade de 50 pixels para evitar navegações acidentais
-
-**Lógica de Navegação:**
-```dart
-void _handleNavigation(dynamic event) {
-  // Scroll do mouse
-  if (event is PointerScrollEvent && _canScroll()) {
-    // Navega para próxima ou página anterior
-    if (event.scrollDelta.dy > 0) {
-      provider.navigateToNext();
-    } else {
-      provider.navigateToPrevious();
-    }
-  }
-  
-  // Gestos de arrasto
-  if (event is PointerUpEvent) {
-    final dragDistance = event.position.dy - _initialDragPosition;
-    
-    if (dragDistance < -dragThreshold) {
-      // Arrasto para baixo: próxima página
-      provider.navigateToNext();
-    } else if (dragDistance > dragThreshold) {
-      // Arrasto para cima: página anterior
-      provider.navigateToPrevious();
-    }
-  }
-}
-```
-
-**Recursos Principais:**
-- 🖱️ Suporte a scroll do mouse
-- 👆 Gestos de arrasto intuitivos
-- 🔒 Prevenção de navegações acidentais
-- 📱 Compatível com desktop e mobile
-
-## Estrutura do Projeto
+### Clean Architecture
 ```
 lib/
-├── config/         # Configurações do app
-├── data/          # Camada de dados
-├── domain/        # Regras de negócio e modelos
-├── routing/       # Sistema de navegação
-├── ui/            # Interface do usuário
-│   ├── core/      # Widgets e constantes compartilhadas
-│   └── features/  # Funcionalidades principais
-└── utils/         # Utilitários gerais
+├── data/         # Modelos e dados
+├── domain/       # Lógica de negócios
+│   ├── controllers/
+│   ├── providers/
+│   └── services/
+└── ui/           # Interface do usuário
+    ├── core/
+    └── features/
 ```
 
-## Fluxo de Animações
-1. Ao iniciar o app, os SVGs são pré-carregados para garantir uma experiência fluida
-2. Durante o carregamento, é exibido um indicador de progresso centralizado
-3. Os frames são posicionados dinamicamente baseados no tamanho da tela
-4. Todas as transições de posição e tamanho são animadas suavemente
+### Componentes Principais
+- **NavigationState**: Gerencia o estado de navegação
+- **ImageInteractionController**: Controla interações com imagens
+- **LoggingService**: Registra eventos do sistema
+- **HoverableFrame**: Widget base para frames interativos
 
-## Fluxograma da Aplicação
+## 📊 Sistema de Logs
 
-```mermaid
-graph TD
-    A[Inicialização do App] --> B[Carregamento de Assets]
-    B --> C[Widget Principal Portifolio]
-    C --> D[Gerenciamento de Estado]
-    C --> E[Sistema de Navegação]
-    E --> F[Home Screen]
-    F --> G[Frames Responsivos]
-    G --> H[Layout Desktop]
-    G --> I[Layout Mobile]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#bbf,stroke:#333,stroke-width:2px
+### Tipos de Eventos
+
+#### 1. Interação com Imagens
+```
+🖱️ Clicou em: About Me
+🎯 Redirecionamento por clique:
+   - De: Home
+   - Para: About Me
+   - Status: sucesso
 ```
 
-## Tecnologias Utilizadas
-- Flutter
-- Provider (Gerenciamento de Estado)
-- SVG Rendering
-- Animações Implícitas do Flutter
+#### 2. Eventos de Hover
+```
+🖱️ Passou o mouse sobre: Projects
+🖱️ Removeu o mouse de: Projects
+```
+
+#### 3. Navegação
+```
+🔄 Navegou para: Education usando scroll do mouse
+🔄 Navegou para: Experience usando gesto de arrasto
+```
+
+### Implementação
+- Singleton pattern para gerenciamento de logs
+- Integração com sistema de navegação
+- Formatação clara e visual com emojis
+- Rastreamento de sucesso/falha em redirecionamentos
+
+## 🚀 Instalação
+
+```bash
+# Clone o repositório
+git clone [url-do-repositório]
+
+# Instale as dependências
+flutter pub get
+
+# Execute o projeto
+flutter run
+```
+
+## 💻 Desenvolvimento
+
+### Pré-requisitos
+- Flutter SDK
+- Dart SDK
+- Editor de código (VS Code recomendado)
+
+### Estrutura de Branches
+- `main`: Versão estável
+- `develop`: Desenvolvimento atual
+- `feature/*`: Novas funcionalidades
+- `hotfix/*`: Correções urgentes
+
+### Contribuição
+1. Fork o projeto
+2. Crie sua branch (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add: nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request

@@ -1,34 +1,63 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 /// Gerenciador de estado para navegação entre frames do portfólio
 /// Utiliza ChangeNotifier para notificar os widgets quando há mudanças
 /// no estado da navegação
 class NavigationState extends ChangeNotifier {
-  // Índice da seção atual (0-5)
-  // 0: About Me, 1: Achievements, 2: Contact
-  // 3: Education, 4: Experience, 5: Projects
   int _currentIndex = 0;
-  
-  /// Getter para obter o índice atual
+  final List<String> _pageNames = [
+    'Home',
+    'About Me',
+    'Education',
+    'Experience',
+    'Projects',
+    'Achievements'
+  ];
+
+  /// Obtém o índice da seção atual
   int get currentIndex => _currentIndex;
 
+  /// Obtém o nome da página atual
+  String get currentPageName => _pageNames[_currentIndex];
+
+  /// Obtém o índice da página pelo nome
+  int getIndexByName(String name) {
+    return _pageNames.indexWhere(
+      (pageName) => pageName.toLowerCase() == name.toLowerCase()
+    );
+  }
+
+  /// Navega para uma página específica pelo índice
+  void navigateToIndex(int index) {
+    if (index >= 0 && index < _pageNames.length && index != _currentIndex) {
+      _currentIndex = index;
+      notifyListeners();
+    }
+  }
+
+  /// Navega para uma página específica pelo nome
+  void navigateToPage(String pageName) {
+    final index = getIndexByName(pageName);
+    if (index != -1) {
+      navigateToIndex(index);
+    }
+  }
+
   /// Navega para a próxima seção
-  /// Só avança se não estiver na última seção (índice 5)
-  /// Notifica os ouvintes após a mudança
+  /// Só avança se não estiver na última seção
   void navigateToNext() {
-    if (_currentIndex < 5) {
+    if (_currentIndex < _pageNames.length - 1) {
       _currentIndex++;
-      notifyListeners();  // Notifica widgets que dependem deste estado
+      notifyListeners();
     }
   }
 
   /// Navega para a seção anterior
-  /// Só retrocede se não estiver na primeira seção (índice 0)
-  /// Notifica os ouvintes após a mudança
+  /// Só retrocede se não estiver na primeira seção
   void navigateToPrevious() {
-    if (currentIndex > 0) {
+    if (_currentIndex > 0) {
       _currentIndex--;
-      notifyListeners();  // Notifica widgets que dependem deste estado
+      notifyListeners();
     }
   }
 }

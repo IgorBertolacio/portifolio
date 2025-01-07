@@ -35,6 +35,7 @@ class ResponsiveFrameLayout extends StatelessWidget {
             width: size.width,
             height: size.height,
             child: HoverableFrame(
+              frameName: frame.name,
               child: frame.svgPicture,
             ),
           ),
