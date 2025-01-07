@@ -20,11 +20,16 @@ class NavigationWrapper extends StatefulWidget {
 
 /// Estado do NavigationWrapper que gerencia a animação de transição entre telas
 /// e o controle de scroll do usuário
-class _NavigationWrapperState extends State<NavigationWrapper> with TickerProviderStateMixin {
+class _NavigationWrapperState extends State<NavigationWrapper>
+    with TickerProviderStateMixin {
   // Controle de tempo para evitar scrolls muito rápidos
   DateTime? _lastScrollTime;
   // Controlador para animação de página
   late PageController _pageController;
+
+  // Variáveis para controlar o gesto de arrasto
+  double _initialDragPosition = 0;
+  bool _isDragging = false;
 
   @override
   void initState() {
@@ -56,29 +61,60 @@ class _NavigationWrapperState extends State<NavigationWrapper> with TickerProvid
     _pageController.animateToPage(
       page,
       duration: Duration(milliseconds: 1000),
-      curve: Curves.easeInOutCubic,  // Curva de animação suave
+      curve: Curves.easeInOutCubic,
     );
+  }
+
+  /// Manipula eventos de scroll do mouse/touchpad e gestos de arrasto
+  void _handleNavigation(dynamic event) {
+    // Lógica para scroll do mouse
+    if (event is PointerScrollEvent && _canScroll()) {
+      _lastScrollTime = DateTime.now();
+      final provider = context.read<NavigationState>();
+      
+      // Determina a direção do scroll e navega adequadamente
+      if (event.scrollDelta.dy > 0) {
+        provider.navigateToNext();
+        _animateToPage(provider.currentIndex);
+      } else {
+        provider.navigateToPrevious();
+        _animateToPage(provider.currentIndex);
+      }
+    }
+    // Lógica para gestos de arrasto (mobile)
+    else if (event is PointerDownEvent) {
+      _initialDragPosition = event.position.dy;
+      _isDragging = true;
+    }
+    else if (event is PointerUpEvent && _isDragging) {
+      _isDragging = false;
+      final provider = context.read<NavigationState>();
+      
+      // Calcula a distância do arrasto
+      final dragDistance = event.position.dy - _initialDragPosition;
+      
+      // Define um limite de sensibilidade para o gesto
+      const double dragThreshold = 50.0;
+      
+      if (dragDistance < -dragThreshold) {
+        // Arrasto para baixo (negativo) navega para próxima página
+        provider.navigateToNext();
+        _animateToPage(provider.currentIndex);
+      } else if (dragDistance > dragThreshold) {
+        // Arrasto para cima (positivo) navega para página anterior
+        provider.navigateToPrevious();
+        _animateToPage(provider.currentIndex);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Listener(
-      // Detecta eventos de scroll do mouse/touchpad
-      onPointerSignal: (pointerSignal) {
-        if (pointerSignal is PointerScrollEvent && _canScroll()) {
-          _lastScrollTime = DateTime.now();
-          final provider = context.read<NavigationState>();
-          
-          // Determina a direção do scroll e navega adequadamente
-          if (pointerSignal.scrollDelta.dy > 0) {
-            provider.navigateToNext();
-            _animateToPage(provider.currentIndex);
-          } else {
-            provider.navigateToPrevious();
-            _animateToPage(provider.currentIndex);
-          }
-        }
-      },
+      // Detecta eventos de scroll e gestos
+      onPointerSignal: _handleNavigation,
+      onPointerDown: _handleNavigation,
+      onPointerUp: _handleNavigation,
       // Usa Consumer para reagir a mudanças no estado de navegação
       child: Consumer<NavigationState>(
         builder: (context, provider, _) {
@@ -97,9 +133,9 @@ class _NavigationWrapperState extends State<NavigationWrapper> with TickerProvid
             controller: _pageController,
             scrollDirection: Axis.vertical,
             physics: NeverScrollableScrollPhysics(), // Desabilita scroll por arrasto
-            children: screens.map((screen) =>
-                ParallaxWidget(child: screen)  // Aplica efeito parallax
-            ).toList(),
+            children: screens
+                .map((screen) => ParallaxWidget(child: screen))
+                .toList(),
           );
         },
       ),

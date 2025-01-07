@@ -11,7 +11,7 @@ class FrameData {
     name: 'AboutMe',
     // Dimensões para desktop
     width: 400.32,
-    height: 341,
+    height: 500.4,
     x: 508,
     y: 78,
     // Dimensões adaptadas para mobile
@@ -28,10 +28,10 @@ class FrameData {
   /// Posicionado na lateral direita para desktop
   static final FrameModel achievements = FrameModel(
     name: 'Achievements',
-    width: 400.32,
-    height: 341,
-    x: 1347,
-    y: 78,
+    width: 375.3,
+    height: 250.2,
+    x: 922.32,
+    y: 652.2,
     mobileWidth: 132,
     mobileHeight: 163,
     mobileX: 33,
@@ -44,10 +44,10 @@ class FrameData {
   /// Posicionado na parte inferior para desktop
   static final FrameModel contact = FrameModel(
     name: 'Contact',
-    width: 400.32,
-    height: 341,
-    x: 508,
-    y: 364,
+    width: 250.2,
+    height: 500.4,
+    x: 198,
+    y: 376,
     mobileWidth: 132,
     mobileHeight: 163,
     mobileX: 180,
@@ -60,10 +60,10 @@ class FrameData {
   /// Posicionado na lateral esquerda para desktop
   static final FrameModel education = FrameModel(
     name: 'Education',
-    width: 400.32,
-    height: 341,
-    x: 928,
-    y: 364,
+    width: 312.75,
+    height: 375.3,
+    x: 559.54,
+    y: 627.18,
     mobileWidth: 132,
     mobileHeight: 163,
     mobileX: 180,
@@ -76,8 +76,8 @@ class FrameData {
   /// Posicionado na parte inferior direita para desktop
   static final FrameModel experience = FrameModel(
     name: 'Experience',
-    width: 400.32,
-    height: 341,
+    width: 375.3,
+    height: 562.95,
     x: 1347,
     y: 364,
     mobileWidth: 104,
@@ -92,10 +92,10 @@ class FrameData {
   /// Posicionado na lateral esquerda para desktop
   static final FrameModel projects = FrameModel(
     name: 'Projects',
-    width: 400.32,
-    height: 341,
-    x: 928,
-    y: 78,
+    width: 287.73,
+    height: 375.3,
+    x: 1009.89,
+    y: 208.1,
     mobileWidth: 132,
     mobileHeight: 163,
     mobileX: 180,

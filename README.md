@@ -31,6 +31,56 @@ A `HomeScreen` implementa:
 - Adiciona interatividade aos frames
 - Implementa efeitos de hover para melhor experiência do usuário
 
+## Navegação Interativa
+
+### Estratégia de Navegação
+O projeto implementa uma navegação inovadora que suporta múltiplos métodos de interação:
+
+#### Navegação por Scroll do Mouse
+- Permite navegar entre telas usando a roda do mouse
+- Implementado no `NavigationWrapper`
+- Suporta scroll para cima e para baixo
+- Usa um mecanismo de debounce para prevenir scrolls acidentais
+
+#### Navegação por Gestos Touch (Mobile-Friendly)
+- Implementa gestos de arrasto (drag) para navegação
+- Suporta navegação intuitiva em dispositivos móveis
+- Limiar de sensibilidade de 50 pixels para evitar navegações acidentais
+
+**Lógica de Navegação:**
+```dart
+void _handleNavigation(dynamic event) {
+  // Scroll do mouse
+  if (event is PointerScrollEvent && _canScroll()) {
+    // Navega para próxima ou página anterior
+    if (event.scrollDelta.dy > 0) {
+      provider.navigateToNext();
+    } else {
+      provider.navigateToPrevious();
+    }
+  }
+  
+  // Gestos de arrasto
+  if (event is PointerUpEvent) {
+    final dragDistance = event.position.dy - _initialDragPosition;
+    
+    if (dragDistance < -dragThreshold) {
+      // Arrasto para baixo: próxima página
+      provider.navigateToNext();
+    } else if (dragDistance > dragThreshold) {
+      // Arrasto para cima: página anterior
+      provider.navigateToPrevious();
+    }
+  }
+}
+```
+
+**Recursos Principais:**
+- 🖱️ Suporte a scroll do mouse
+- 👆 Gestos de arrasto intuitivos
+- 🔒 Prevenção de navegações acidentais
+- 📱 Compatível com desktop e mobile
+
 ## Estrutura do Projeto
 ```
 lib/
