@@ -11,7 +11,6 @@ Um portfólio moderno desenvolvido em Flutter, apresentando uma interface única
 - [Desenvolvimento](#-desenvolvimento)
 
 ## 🎯 Visão Geral
-
 Portfólio interativo que combina design moderno com uma experiência de usuário fluida. Desenvolvido com Flutter e seguindo princípios de Clean Architecture.
 
 ### Principais Características
@@ -53,10 +52,10 @@ lib/
 ```
 
 ### Componentes Principais
-- **NavigationState**: Gerencia o estado de navegação
-- **ImageInteractionController**: Controla interações com imagens
-- **LoggingService**: Registra eventos do sistema
-- **HoverableFrame**: Widget base para frames interativos
+- `NavigationState`: Gerencia o estado de navegação
+- `ImageInteractionController`: Controla interações com imagens
+- `LoggingService`: Registra eventos do sistema
+- `HoverableFrame`: Widget base para frames interativos
 
 ## 📊 Sistema de Logs
 
@@ -93,7 +92,7 @@ lib/
 
 ```bash
 # Clone o repositório
-git clone [url-do-repositório]
+git clone https://github.com/IgorBertolacio/portifolio.git
 
 # Instale as dependências
 flutter pub get

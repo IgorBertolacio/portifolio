@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../data/frame_data.dart';  // Importa os dados dos frames
-import '../../../core/widgets/responsive_frame.dart';  // Widget responsivo para os frames
+import '../../../../data/home/home_frame_data.dart'; // Importa os dados dos frames
+import '../../../core/widgets/responsive_frame.dart'; // Widget responsivo para os frames
 
 /// Widget principal da tela inicial do portfólio
 /// Responsável por exibir todos os frames em um layout responsivo

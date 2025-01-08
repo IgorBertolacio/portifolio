@@ -37,9 +37,12 @@ class NavigationState extends ChangeNotifier {
 
   /// Navega para uma página específica pelo nome
   void navigateToPage(String pageName) {
-    final index = getIndexByName(pageName);
+    final index = _pageNames.indexWhere(
+      (page) => page.replaceAll(' ', '').toLowerCase() == pageName.replaceAll(' ', '').toLowerCase()
+    );
     if (index != -1) {
-      navigateToIndex(index);
+      _currentIndex = index;
+      notifyListeners();
     }
   }
 

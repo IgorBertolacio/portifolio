@@ -1,4 +1,4 @@
-import '../domain/models/frame_model.dart';
+import '../../domain/models/home/home_frame_model.dart';
 
 /// Classe responsável por armazenar e fornecer os dados de todos os frames do portfólio
 /// Cada frame representa uma seção diferente do portfólio (About Me, Projects, etc.)

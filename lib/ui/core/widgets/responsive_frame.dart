@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../domain/models/frame_model.dart';
+import '../../../domain/models/home/home_frame_model.dart';
 import 'hoverable_frame.dart';
 
 class ResponsiveFrameLayout extends StatelessWidget {

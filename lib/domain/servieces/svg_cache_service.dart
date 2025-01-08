@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../data/frame_data.dart';
+import '../../data/home/home_frame_data.dart';
 
 /// Serviço responsável pelo gerenciamento de cache dos arquivos SVG
 /// Otimiza a performance do aplicativo pré-carregando todos os SVGs
@@ -43,7 +43,8 @@ class SvgCacheService {
     // Para cada frame, carrega e armazena o SVG em cache
     for (final frame in frames) {
       final loader = SvgAssetLoader(frame.svgPath);
-      await svg.cache.putIfAbsent(frame.svgPath, () => loader.loadBytes(context));
+      await svg.cache
+          .putIfAbsent(frame.svgPath, () => loader.loadBytes(context));
     }
   }
 

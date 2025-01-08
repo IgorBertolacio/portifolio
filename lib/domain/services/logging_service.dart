@@ -1,45 +1,64 @@
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 
-/// Serviço responsável por gerenciar logs da aplicação
+/// Service responsible for managing application logs
 class LoggingService {
   static final LoggingService _instance = LoggingService._internal();
+  late final Logger _logger;
   
   factory LoggingService() {
     return _instance;
   }
   
-  LoggingService._internal();
-  
-  /// Registra um evento de clique em imagem
+  LoggingService._internal() {
+    _logger = Logger(
+      printer: PrettyPrinter(
+        methodCount: 0,
+        errorMethodCount: 5,
+        lineLength: 50,
+        colors: true,
+        printEmojis: true,
+      ),
+    );
+  }
+
+  /// Logs an image click event
   void logImageClick(String imageName) {
-    if (kDebugMode) {
-      print('🖱️ Clicou em: $imageName');
-    }
+    _logger.i('🖱️ Image clicked: $imageName');
   }
 
-  /// Registra um evento de hover em imagem
+  /// Logs an image hover event
   void logHoverEvent(String imageName, bool isHovering) {
-    if (kDebugMode) {
-      final action = isHovering ? 'Passou o mouse sobre' : 'Removeu o mouse de';
-      print('🖱️ $action: $imageName');
-    }
+    final action = isHovering ? 'Mouse entered' : 'Mouse left';
+    _logger.i('🖱️ $action: $imageName');
   }
 
-  /// Registra um evento de navegação
+  /// Logs a navigation event
   void logNavigation(String pageName, String method) {
-    if (kDebugMode) {
-      print('🔄 Navegou para: $pageName usando $method');
-    }
+    _logger.i('🔄 Navigated to: $pageName using $method');
   }
 
-  /// Registra um evento de redirecionamento por clique
+  /// Logs a click navigation event
   void logClickNavigation(String fromFrame, String toPage, bool successful) {
-    if (kDebugMode) {
-      final status = successful ? 'sucesso' : 'falha';
-      print('🎯 Redirecionamento por clique:');
-      print('   - De: $fromFrame');
-      print('   - Para: $toPage');
-      print('   - Status: $status');
-    }
+    final status = successful ? 'success' : 'failure';
+    _logger.i('''🎯 Click Navigation:
+    - From: $fromFrame
+    - To: $toPage
+    - Status: $status''');
+  }
+
+  /// Logs an error with stack trace
+  void logError(String message, [dynamic error, StackTrace? stackTrace]) {
+    _logger.e(message, error: error, stackTrace: stackTrace);
+  }
+
+  /// Logs a warning message
+  void logWarning(String message) {
+    _logger.w(message);
+  }
+
+  /// Logs debug information
+  void logDebug(String message) {
+    _logger.d(message);
   }
 }

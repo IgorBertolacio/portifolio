@@ -1,5 +1,5 @@
 name: portifolio
-description: "A new Flutter project."
+description: "A Flutter portfolio project"
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -9,10 +9,13 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.16
   provider: ^6.1.2
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.4.4
+  test: ^1.24.9
 
 flutter:
   uses-material-design: true

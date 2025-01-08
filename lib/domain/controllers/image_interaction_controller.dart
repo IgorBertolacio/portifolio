@@ -13,23 +13,18 @@ class ImageInteractionController {
     _loggingService.logImageClick(imageName);
     
     // Tenta navegar para a página correspondente
-    final targetIndex = _navigationState.getIndexByName(imageName);
     final currentPage = _navigationState.currentPageName;
     
-    if (targetIndex != -1) {
-      _navigationState.navigateToIndex(targetIndex);
-      _loggingService.logClickNavigation(
-        currentPage,
-        imageName,
-        true
-      );
-    } else {
-      _loggingService.logClickNavigation(
-        currentPage,
-        imageName,
-        false
-      );
-    }
+    // Navega diretamente usando o nome da página
+    _navigationState.navigateToPage(imageName);
+    
+    // Loga o resultado da navegação
+    final success = _navigationState.currentPageName != currentPage;
+    _loggingService.logClickNavigation(
+      currentPage,
+      imageName,
+      success
+    );
   }
 
   /// Manipula eventos de hover
