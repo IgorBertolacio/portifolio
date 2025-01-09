@@ -9,6 +9,7 @@ Um portfólio moderno desenvolvido em Flutter, apresentando uma interface única
 - [Sistema de Logs](#-sistema-de-logs)
 - [Instalação](#-instalação)
 - [Desenvolvimento](#-desenvolvimento)
+- [Últimas Atualizações](#-últimas-atualizações)
 
 ## 🎯 Visão Geral
 Portfólio interativo que combina design moderno com uma experiência de usuário fluida. Desenvolvido com Flutter e seguindo princípios de Clean Architecture.
@@ -87,6 +88,39 @@ lib/
 - Integração com sistema de navegação
 - Formatação clara e visual com emojis
 - Rastreamento de sucesso/falha em redirecionamentos
+
+## 🔄 Últimas Atualizações
+
+### Sistema de Detecção de Dispositivo
+- **DeviceInfo**: Nova classe utilitária para gerenciamento de informações do dispositivo
+  ```dart
+  DeviceInfo.isMobile(context)      // Verifica se é mobile via BuildContext
+  DeviceInfo.isMobileFromSize(size) // Verifica se é mobile via Size
+  ```
+
+### Sistema de Logs Aprimorado
+- **Logging de Dispositivo**: Novo sistema para rastrear informações do dispositivo
+  ```dart
+  LoggingService().logDeviceInfo(screenSize);
+  // Exemplo de output:
+  // 📱 Device Info:
+  //     - Type: Mobile/Desktop
+  //     - Screen: 360.00x640.00
+  //     - Base Resolution: 320x568
+  //     - Scale Factor: 1.13x1.13
+  //     - Orientation: Portrait/Landscape
+  //     - Aspect Ratio: 0.56
+  ```
+
+### Constantes de Layout
+- **Base Mobile**: 320x568
+- **Base Desktop**: 1920x1080
+- **Breakpoint Mobile**: <= 768px
+
+### Responsividade
+- Sistema de escala automática baseado no tipo de dispositivo
+- Cálculos de dimensão otimizados para cada plataforma
+- Posicionamento adaptativo de elementos
 
 ## 🚀 Instalação
 

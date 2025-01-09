@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../domain/models/home/home_frame_model.dart';
+import '../../../domain/services/logging_service.dart';
+import '../utils/device_info.dart';
 import 'hoverable_frame.dart';
 
-class ResponsiveFrameLayout extends StatelessWidget {
-  final List<FrameModel> frames;
+class ResponsiveHomeFrameLayout extends StatelessWidget {
+  final List<HomeFrameModel> frames;
   final Duration animationDuration;
   final Curve animationCurve;
 
-  const ResponsiveFrameLayout({
+  const ResponsiveHomeFrameLayout({
     Key? key,
     required this.frames,
     this.animationDuration = const Duration(milliseconds: 500),
@@ -17,7 +19,10 @@ class ResponsiveFrameLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final isMobile = screenSize.width <= 768;
+    final isMobile = DeviceInfo.isMobileFromSize(screenSize);
+    
+    // Reporta informações do dispositivo
+    LoggingService().logDeviceInfo(screenSize);
 
     return Stack(
       children: frames.map((frame) {

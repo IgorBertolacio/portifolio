@@ -3,11 +3,11 @@ import '../../domain/models/home/home_frame_model.dart';
 /// Classe responsável por armazenar e fornecer os dados de todos os frames do portfólio
 /// Cada frame representa uma seção diferente do portfólio (About Me, Projects, etc.)
 /// com suas respectivas dimensões e posições tanto para desktop quanto para mobile
-class FrameData {
+class HomeFrameData {
   /// Frame da seção "Sobre Mim"
   /// Posicionado no topo central para desktop
   /// E no topo esquerdo para mobile
-  static final FrameModel aboutMe = FrameModel(
+  static final HomeFrameModel aboutMe = HomeFrameModel(
     name: 'AboutMe',
     // Dimensões para desktop
     width: 400.32,
@@ -25,8 +25,7 @@ class FrameData {
   );
 
   /// Frame da seção "Conquistas"
-  /// Posicionado na lateral direita para desktop
-  static final FrameModel achievements = FrameModel(
+  static final HomeFrameModel achievements = HomeFrameModel(
     name: 'Achievements',
     width: 375.3,
     height: 250.2,
@@ -41,8 +40,7 @@ class FrameData {
   );
 
   /// Frame da seção "Contato"
-  /// Posicionado na parte inferior para desktop
-  static final FrameModel contact = FrameModel(
+  static final HomeFrameModel contact = HomeFrameModel(
     name: 'Contact',
     width: 250.2,
     height: 500.4,
@@ -57,8 +55,7 @@ class FrameData {
   );
 
   /// Frame da seção "Educação"
-  /// Posicionado na lateral esquerda para desktop
-  static final FrameModel education = FrameModel(
+  static final HomeFrameModel education = HomeFrameModel(
     name: 'Education',
     width: 312.75,
     height: 375.3,
@@ -73,8 +70,7 @@ class FrameData {
   );
 
   /// Frame da seção "Experiência"
-  /// Posicionado na parte inferior direita para desktop
-  static final FrameModel experience = FrameModel(
+  static final HomeFrameModel experience = HomeFrameModel(
     name: 'Experience',
     width: 375.3,
     height: 562.95,
@@ -89,8 +85,7 @@ class FrameData {
   );
 
   /// Frame da seção "Projetos"
-  /// Posicionado na lateral esquerda para desktop
-  static final FrameModel projects = FrameModel(
+  static final HomeFrameModel projects = HomeFrameModel(
     name: 'Projects',
     width: 287.73,
     height: 375.3,
@@ -104,9 +99,9 @@ class FrameData {
     pngPath: 'assets/images/png/projects_png.png',
   );
 
-  /// Retorna uma lista com todos os frames do portfólio
+  /// Retorna uma lista com todos os frames da home do portfólio
   /// A ordem da lista determina a ordem de renderização (z-index)
-  static List<FrameModel> getAllFrames() => [
+  static List<HomeFrameModel> getHomeAllFrames() => [
         aboutMe,
         achievements,
         contact,

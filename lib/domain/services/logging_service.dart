@@ -1,15 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
+import 'package:flutter/material.dart';
+import '../../ui/core/utils/device_info.dart';
 
 /// Service responsible for managing application logs
 class LoggingService {
   static final LoggingService _instance = LoggingService._internal();
   late final Logger _logger;
-  
+
   factory LoggingService() {
     return _instance;
   }
-  
+
   LoggingService._internal() {
     _logger = Logger(
       printer: PrettyPrinter(
@@ -60,5 +61,27 @@ class LoggingService {
   /// Logs debug information
   void logDebug(String message) {
     _logger.d(message);
+  }
+
+  /// Reporta informações sobre o tipo de dispositivo e suas dimensões
+  void logDeviceInfo(Size screenSize) {
+    final bool isMobile = DeviceInfo.isMobileFromSize(screenSize);
+    final deviceType = isMobile ? 'Mobile' : 'Desktop';
+    final baseWidth = isMobile ? DeviceInfo.mobileBaseWidth : DeviceInfo.desktopBaseWidth;
+    final baseHeight = isMobile ? DeviceInfo.mobileBaseHeight : DeviceInfo.desktopBaseHeight;
+    
+    _logger.i('''📱 Device Info:
+    - Type: $deviceType
+    - Screen: ${screenSize.width.toStringAsFixed(2)}x${screenSize.height.toStringAsFixed(2)}
+    - Base Resolution: ${baseWidth}x${baseHeight}
+    - Scale Factor: ${(screenSize.width / baseWidth).toStringAsFixed(2)}x${(screenSize.height / baseHeight).toStringAsFixed(2)}
+    - Orientation: ${screenSize.height > screenSize.width ? 'Portrait' : 'Landscape'}
+    - Aspect Ratio: ${(screenSize.width / screenSize.height).toStringAsFixed(2)}''');
+  }
+
+  /// Reporta informações sobre o tipo de dispositivo usando BuildContext
+  void logDeviceInfoFromContext(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    logDeviceInfo(screenSize);
   }
 }

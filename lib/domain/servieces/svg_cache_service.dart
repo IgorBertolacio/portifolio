@@ -38,7 +38,7 @@ class SvgCacheService {
   /// @returns Future que completa quando todos os SVGs estão carregados
   Future<void> precacheAllFrameSvgs(BuildContext context) async {
     // Obtém a lista de todos os frames
-    final frames = FrameData.getAllFrames();
+    final frames = HomeFrameData.getHomeAllFrames();
 
     // Para cada frame, carrega e armazena o SVG em cache
     for (final frame in frames) {
